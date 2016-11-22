@@ -11,8 +11,7 @@ HardOrSoftSerial::HardOrSoftSerial(SoftwareSerial* _softSerial) {
 }
 
 HardOrSoftSerial::HardOrSoftSerial(int rx, int tx) {
-  SoftwareSerial _softSerial(rx, tx);
-  softSerial = &_softSerial;
+  softSerial = new SoftwareSerial(rx, tx);
   isHard = false;
 }
 
