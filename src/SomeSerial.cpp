@@ -3,21 +3,40 @@
 SomeSerial::SomeSerial(HardwareSerial* _hardSerial) {
   hardSerial = _hardSerial;
   isHard = true;
+  isSoft = false;
+  isUsb = false;
 }
 
 SomeSerial::SomeSerial(SoftwareSerial* _softSerial) {
   softSerial = _softSerial;
   isHard = false;
+  isSoft = true;
+  isUsb = false;
 }
 
 SomeSerial::SomeSerial(int rx, int tx) {
   softSerial = new SoftwareSerial(rx, tx);
   isHard = false;
+  isSoft = true;
+  isUsb = false;
 }
+
+#ifdef __USB_SERIAL_AVAILABLE__
+SomeSerial::SomeSerial(Serial_* _usbSerial) {
+  usbSerial = _usbSerial;
+  isHard = false;
+  isSoft = false;
+  isUsb = true;
+}
+#endif
 
 void SomeSerial::begin(long speed) {
   if (isHard) {
     hardSerial->begin(speed);
+#ifdef __USB_SERIAL_AVAILABLE__
+  } else if (isUsb) {
+    usbSerial->begin(speed);
+#endif
   } else {
     softSerial->begin(speed);
   }
@@ -26,6 +45,10 @@ void SomeSerial::begin(long speed) {
 void SomeSerial::end() {
   if (isHard) {
     hardSerial->end();
+#ifdef __USB_SERIAL_AVAILABLE__
+  } else if (isUsb) {
+    usbSerial->end();
+#endif
   } else {
     softSerial->end();
   }
@@ -36,12 +59,20 @@ bool SomeSerial::isHardSerial() {
 }
 
 bool SomeSerial::isSoftSerial() {
-  return ! isHard;
+  return isSoft;
+}
+
+bool SomeSerial::isUsbSerial() {
+  return isUsb;
 }
 
 int SomeSerial::peek() {
   if (isHard) {
     return hardSerial->peek();
+#ifdef __USB_SERIAL_AVAILABLE__
+  } else if (isUsb) {
+    return usbSerial->peek();
+#endif
   } else {
     return softSerial->peek();
   }
@@ -50,6 +81,10 @@ int SomeSerial::peek() {
 size_t SomeSerial::write(uint8_t byte) {
   if (isHard) {
     return hardSerial->write(byte);
+#ifdef __USB_SERIAL_AVAILABLE__
+  } else if (isUsb) {
+    return usbSerial->write(byte);
+#endif
   } else {
     return softSerial->write(byte);
   }
@@ -58,6 +93,10 @@ size_t SomeSerial::write(uint8_t byte) {
 int SomeSerial::read() {
   if (isHard) {
     return hardSerial->read();
+#ifdef __USB_SERIAL_AVAILABLE__
+  } else if (isUsb) {
+    return usbSerial->read();
+#endif
   } else {
     return softSerial->read();
   }
@@ -66,6 +105,10 @@ int SomeSerial::read() {
 int SomeSerial::available() {
   if (isHard) {
     return hardSerial->available();
+#ifdef __USB_SERIAL_AVAILABLE__
+  } else if (isUsb) {
+    return usbSerial->available();
+#endif
   } else {
     return softSerial->available();
   }
@@ -74,6 +117,10 @@ int SomeSerial::available() {
 void SomeSerial::flush() {
   if (isHard) {
     return hardSerial->available();
+#ifdef __USB_SERIAL_AVAILABLE__
+  } else if (isUsb) {
+    return usbSerial->available();
+#endif
   } else {
     return softSerial->available();
   }
