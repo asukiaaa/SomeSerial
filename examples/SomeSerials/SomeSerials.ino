@@ -4,7 +4,7 @@ SomeSerial myHardOrUsbSerial(&Serial);
 
 SomeSerial mySoftSerial1(10, 11); // RX, TX
 
-SoftwareSerial mySoftwareSerial(8,9); //RX, TX
+SoftwareSerial mySoftwareSerial(8, 9); //RX, TX
 SomeSerial mySoftSerial2(&mySoftwareSerial);
 
 void setup() {
