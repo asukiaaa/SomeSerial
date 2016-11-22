@@ -1,21 +1,21 @@
-#include "HardOrSoftSerial.h"
+#include "SomeSerial.h"
 
-HardOrSoftSerial::HardOrSoftSerial(HardwareSerial* _hardSerial) {
+SomeSerial::SomeSerial(HardwareSerial* _hardSerial) {
   hardSerial = _hardSerial;
   isHard = true;
 }
 
-HardOrSoftSerial::HardOrSoftSerial(SoftwareSerial* _softSerial) {
+SomeSerial::SomeSerial(SoftwareSerial* _softSerial) {
   softSerial = _softSerial;
   isHard = false;
 }
 
-HardOrSoftSerial::HardOrSoftSerial(int rx, int tx) {
+SomeSerial::SomeSerial(int rx, int tx) {
   softSerial = new SoftwareSerial(rx, tx);
   isHard = false;
 }
 
-void HardOrSoftSerial::begin(long speed) {
+void SomeSerial::begin(long speed) {
   if (isHard) {
     hardSerial->begin(speed);
   } else {
@@ -23,7 +23,7 @@ void HardOrSoftSerial::begin(long speed) {
   }
 }
 
-void HardOrSoftSerial::end() {
+void SomeSerial::end() {
   if (isHard) {
     hardSerial->end();
   } else {
@@ -31,15 +31,15 @@ void HardOrSoftSerial::end() {
   }
 }
 
-bool HardOrSoftSerial::isHardSerial() {
+bool SomeSerial::isHardSerial() {
   return isHard;
 }
 
-bool HardOrSoftSerial::isSoftSerial() {
+bool SomeSerial::isSoftSerial() {
   return ! isHard;
 }
 
-int HardOrSoftSerial::peek() {
+int SomeSerial::peek() {
   if (isHard) {
     return hardSerial->peek();
   } else {
@@ -47,7 +47,7 @@ int HardOrSoftSerial::peek() {
   }
 }
 
-size_t HardOrSoftSerial::write(uint8_t byte) {
+size_t SomeSerial::write(uint8_t byte) {
   if (isHard) {
     return hardSerial->write(byte);
   } else {
@@ -55,7 +55,7 @@ size_t HardOrSoftSerial::write(uint8_t byte) {
   }
 }
 
-int HardOrSoftSerial::read() {
+int SomeSerial::read() {
   if (isHard) {
     return hardSerial->read();
   } else {
@@ -63,7 +63,7 @@ int HardOrSoftSerial::read() {
   }
 }
 
-int HardOrSoftSerial::available() {
+int SomeSerial::available() {
   if (isHard) {
     return hardSerial->available();
   } else {
@@ -71,7 +71,7 @@ int HardOrSoftSerial::available() {
   }
 }
 
-void HardOrSoftSerial::flush() {
+void SomeSerial::flush() {
   if (isHard) {
     return hardSerial->available();
   } else {

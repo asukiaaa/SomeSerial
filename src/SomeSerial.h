@@ -1,14 +1,14 @@
-#ifndef HARD_OR_SOFT_SERIAL_H
-#define HARD_OR_SOFT_SERIAL_H
+#ifndef SOME_SERIAL_H
+#define SOME_SERIAL_H
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
-class HardOrSoftSerial : public Stream {
+class SomeSerial : public Stream {
   public:
-  HardOrSoftSerial(HardwareSerial* _hardSerial);
-  HardOrSoftSerial(SoftwareSerial* _softSerial);
-  HardOrSoftSerial(int rx, int tx);
+  SomeSerial(HardwareSerial* _hardSerial);
+  SomeSerial(SoftwareSerial* _softSerial);
+  SomeSerial(int rx, int tx);
 
   HardwareSerial* hardSerial;
   SoftwareSerial* softSerial;
