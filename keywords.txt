@@ -1,0 +1,33 @@
+#######################################
+# Syntax Coloring Map for SomeSerial
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SomeSerial	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+end	KEYWORD2
+read	KEYWORD2
+write	KEYWORD2
+available	KEYWORD2
+flush	KEYWORD2
+peek	KEYWORD2
+isSoftwareSerial	KEYWORD2
+isHardwareSerial	KEYWORD2
+isSerial_	KEYWORD2
+thisSoftwareSerial	KEYWORD2
+thisHardwareSerial	KEYWORD2
+thisSerial_	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+__USB_SERIAL_AVAILABLE__	LITERAL1
