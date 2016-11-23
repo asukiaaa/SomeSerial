@@ -11,24 +11,24 @@
 
 class SomeSerial : public Stream {
   public:
-  SomeSerial(HardwareSerial* _hardSerial);
-  SomeSerial(SoftwareSerial* _softSerial);
+  SomeSerial(HardwareSerial* _thisHardwareSerial);
+  SomeSerial(SoftwareSerial* _thisSoftwareSerial);
   SomeSerial(int rx, int tx);
 #ifdef __USB_SERIAL_AVAILABLE__
-  SomeSerial(Serial_* _usbSerial);
+  SomeSerial(Serial_* _thisSerial_);
 #endif
 
-  HardwareSerial* hardSerial;
-  SoftwareSerial* softSerial;
+  HardwareSerial* thisHardwareSerial;
+  SoftwareSerial* thisSoftwareSerial;
 #ifdef __USB_SERIAL_AVAILABLE__
-  Serial_* usbSerial;
+  Serial_* thisSerial_;
 #endif
 
   void begin(long speed);
   void end();
-  bool isHardSerial();
-  bool isSoftSerial();
-  bool isUsbSerial();
+  bool isHardwareSerial();
+  bool isSoftwareSerial();
+  bool isSerial_();
 
   virtual int peek();
   virtual size_t write(uint8_t byte);
@@ -40,9 +40,9 @@ class SomeSerial : public Stream {
 
   private:
   void setAllFlagsFalse();
-  bool isHard;
-  bool isSoft;
-  bool isUsb;
+  bool flagHardwareSerial;
+  bool flagSoftwareSerial;
+  bool flagSerial_;
 };
 
 #endif

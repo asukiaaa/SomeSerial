@@ -23,19 +23,19 @@ void loop() {
 void testPrintWithSomeSerial(SomeSerial* someSerial) {
   someSerial->print("## start some serial at ");
   someSerial->println(millis());
-  if (someSerial->isHardSerial()) {
+  if (someSerial->isHardwareSerial()) {
     someSerial->println("It is HardwareSerial");
-    someSerial->hardSerial->println("Direct print to HardwareSerial");
+    someSerial->thisHardwareSerial->println("Direct print to HardwareSerial");
 
-  } else if (someSerial->isUsbSerial()) {
-    someSerial->println("It is UsbSerial");
+  } else if (someSerial->isSerial_()) {
+    someSerial->println("It is USBAPI Serial_");
 #ifdef __USB_SERIAL_AVAILABLE__
-    someSerial->usbSerial->println("Direct print to UsbSerial");
+    someSerial->thisSerial_->println("Direct print to USBAPI Serial_");
 #endif
 
-  } else if (someSerial->isSoftSerial()) {
+  } else if (someSerial->isSoftwareSerial()) {
     someSerial->println("It is SoftwareSerial");
-    someSerial->softSerial->println("Direct print to SoftwareSerial");
+    someSerial->thisSoftwareSerial->println("Direct print to SoftwareSerial");
   }
   someSerial->println("## end some serial");
 }

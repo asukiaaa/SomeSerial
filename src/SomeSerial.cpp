@@ -1,129 +1,129 @@
 #include "SomeSerial.h"
 
-SomeSerial::SomeSerial(HardwareSerial* _hardSerial) {
-  hardSerial = _hardSerial;
+SomeSerial::SomeSerial(HardwareSerial* _thisHardwareSerial) {
+  thisHardwareSerial = _thisHardwareSerial;
   setAllFlagsFalse();
-  isHard = true;
+  flagHardwareSerial = true;
 }
 
-SomeSerial::SomeSerial(SoftwareSerial* _softSerial) {
-  softSerial = _softSerial;
+SomeSerial::SomeSerial(SoftwareSerial* _thisSoftwareSerial) {
+  thisSoftwareSerial = _thisSoftwareSerial;
   setAllFlagsFalse();
-  isSoft = true;
+  flagSoftwareSerial = true;
 }
 
 SomeSerial::SomeSerial(int rx, int tx) {
-  softSerial = new SoftwareSerial(rx, tx);
+  thisSoftwareSerial = new SoftwareSerial(rx, tx);
   setAllFlagsFalse();
-  isSoft = true;
+  flagSoftwareSerial = true;
 }
 
 #ifdef __USB_SERIAL_AVAILABLE__
-SomeSerial::SomeSerial(Serial_* _usbSerial) {
-  usbSerial = _usbSerial;
+SomeSerial::SomeSerial(Serial_* _thisSerial_) {
+  thisSerial_ = _thisSerial_;
   setAllFlagsFalse();
-  isUsb = true;
+  flagSerial_ = true;
 }
 #endif
 
 void SomeSerial::begin(long speed) {
-  if (isHard) {
-    hardSerial->begin(speed);
+  if (flagHardwareSerial) {
+    thisHardwareSerial->begin(speed);
 #ifdef __USB_SERIAL_AVAILABLE__
-  } else if (isUsb) {
-    usbSerial->begin(speed);
+  } else if (flagSerial_) {
+    thisSerial_->begin(speed);
 #endif
   } else {
-    softSerial->begin(speed);
+    thisSoftwareSerial->begin(speed);
   }
 }
 
 void SomeSerial::end() {
-  if (isHard) {
-    hardSerial->end();
+  if (flagHardwareSerial) {
+    thisHardwareSerial->end();
 #ifdef __USB_SERIAL_AVAILABLE__
-  } else if (isUsb) {
-    usbSerial->end();
+  } else if (flagSerial_) {
+    thisSerial_->end();
 #endif
   } else {
-    softSerial->end();
+    thisSoftwareSerial->end();
   }
 }
 
-bool SomeSerial::isHardSerial() {
-  return isHard;
+bool SomeSerial::isHardwareSerial() {
+  return flagHardwareSerial;
 }
 
-bool SomeSerial::isSoftSerial() {
-  return isSoft;
+bool SomeSerial::isSoftwareSerial() {
+  return flagSoftwareSerial;
 }
 
-bool SomeSerial::isUsbSerial() {
-  return isUsb;
+bool SomeSerial::isSerial_() {
+  return flagSerial_;
 }
 
 int SomeSerial::peek() {
-  if (isHard) {
-    return hardSerial->peek();
+  if (flagHardwareSerial) {
+    return thisHardwareSerial->peek();
 #ifdef __USB_SERIAL_AVAILABLE__
-  } else if (isUsb) {
-    return usbSerial->peek();
+  } else if (flagSerial_) {
+    return thisSerial_->peek();
 #endif
   } else {
-    return softSerial->peek();
+    return thisSoftwareSerial->peek();
   }
 }
 
 size_t SomeSerial::write(uint8_t byte) {
-  if (isHard) {
-    return hardSerial->write(byte);
+  if (flagHardwareSerial) {
+    return thisHardwareSerial->write(byte);
 #ifdef __USB_SERIAL_AVAILABLE__
-  } else if (isUsb) {
-    return usbSerial->write(byte);
+  } else if (flagSerial_) {
+    return thisSerial_->write(byte);
 #endif
   } else {
-    return softSerial->write(byte);
+    return thisSoftwareSerial->write(byte);
   }
 }
 
 int SomeSerial::read() {
-  if (isHard) {
-    return hardSerial->read();
+  if (flagHardwareSerial) {
+    return thisHardwareSerial->read();
 #ifdef __USB_SERIAL_AVAILABLE__
-  } else if (isUsb) {
-    return usbSerial->read();
+  } else if (flagSerial_) {
+    return thisSerial_->read();
 #endif
   } else {
-    return softSerial->read();
+    return thisSoftwareSerial->read();
   }
 }
 
 int SomeSerial::available() {
-  if (isHard) {
-    return hardSerial->available();
+  if (flagHardwareSerial) {
+    return thisHardwareSerial->available();
 #ifdef __USB_SERIAL_AVAILABLE__
-  } else if (isUsb) {
-    return usbSerial->available();
+  } else if (flagSerial_) {
+    return thisSerial_->available();
 #endif
   } else {
-    return softSerial->available();
+    return thisSoftwareSerial->available();
   }
 }
 
 void SomeSerial::flush() {
-  if (isHard) {
-    return hardSerial->available();
+  if (flagHardwareSerial) {
+    return thisHardwareSerial->available();
 #ifdef __USB_SERIAL_AVAILABLE__
-  } else if (isUsb) {
-    return usbSerial->available();
+  } else if (flagSerial_) {
+    return thisSerial_->available();
 #endif
   } else {
-    return softSerial->available();
+    return thisSoftwareSerial->available();
   }
 }
 
 void SomeSerial::setAllFlagsFalse() {
-  isHard = false;
-  isSoft = false;
-  isUsb = false;
+  flagHardwareSerial = false;
+  flagSoftwareSerial = false;
+  flagSerial_ = false;
 }
