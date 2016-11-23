@@ -39,6 +39,7 @@ class SomeSerial : public Stream {
   using Print::write;
 
   private:
+  void setAllFlagsFalse();
   bool isHard;
   bool isSoft;
   bool isUsb;

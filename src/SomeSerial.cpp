@@ -2,30 +2,26 @@
 
 SomeSerial::SomeSerial(HardwareSerial* _hardSerial) {
   hardSerial = _hardSerial;
+  setAllFlagsFalse();
   isHard = true;
-  isSoft = false;
-  isUsb = false;
 }
 
 SomeSerial::SomeSerial(SoftwareSerial* _softSerial) {
   softSerial = _softSerial;
-  isHard = false;
+  setAllFlagsFalse();
   isSoft = true;
-  isUsb = false;
 }
 
 SomeSerial::SomeSerial(int rx, int tx) {
   softSerial = new SoftwareSerial(rx, tx);
-  isHard = false;
+  setAllFlagsFalse();
   isSoft = true;
-  isUsb = false;
 }
 
 #ifdef __USB_SERIAL_AVAILABLE__
 SomeSerial::SomeSerial(Serial_* _usbSerial) {
   usbSerial = _usbSerial;
-  isHard = false;
-  isSoft = false;
+  setAllFlagsFalse();
   isUsb = true;
 }
 #endif
@@ -124,4 +120,10 @@ void SomeSerial::flush() {
   } else {
     return softSerial->available();
   }
+}
+
+void SomeSerial::setAllFlagsFalse() {
+  isHard = false;
+  isSoft = false;
+  isUsb = false;
 }
