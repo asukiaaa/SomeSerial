@@ -112,13 +112,13 @@ int SomeSerial::available() {
 
 void SomeSerial::flush() {
   if (flagHardwareSerial) {
-    return thisHardwareSerial->available();
+    thisHardwareSerial->flush();
 #ifdef __USB_SERIAL_AVAILABLE__
   } else if (flagSerial_) {
-    return thisSerial_->available();
+    thisSerial_->flush();
 #endif
   } else {
-    return thisSoftwareSerial->available();
+    thisSoftwareSerial->flush();
   }
 }
 
