@@ -6,7 +6,8 @@ SomeSerial myHardOrUsbSerial(&SerialUSB);
 SomeSerial myHardOrUsbSerial(&Serial);
 #endif
 
-#ifndef ARDUINO_SAM_DUE // arduino due does not support SoftwareSerial
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
+// arm boards and esp32 do not support SoftwareSerial
 SomeSerial mySoftSerial1(10, 11); // RX, TX
 
 SoftwareSerial mySoftwareSerial(8, 9); //RX, TX
@@ -15,7 +16,7 @@ SomeSerial mySoftSerial2(&mySoftwareSerial);
 
 void setup() {
   myHardOrUsbSerial.begin(115200);
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   mySoftSerial1.begin(19200);
   mySoftSerial2.begin(9600);
 #endif
@@ -23,7 +24,7 @@ void setup() {
 
 void loop() {
   testPrintWithSomeSerial(&myHardOrUsbSerial);
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   testPrintWithSomeSerial(&mySoftSerial1);
   testPrintWithSomeSerial(&mySoftSerial2);
   delay(1000);
@@ -53,7 +54,7 @@ void testPrintWithSomeSerial(SomeSerial* someSerial) {
 #endif
   } else if (someSerial->isSoftwareSerial()) {
     someSerial->println("It is SoftwareSerial");
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
     someSerial->thisSoftwareSerial->println("Direct print to SoftwareSerial");
 #endif
   }

@@ -6,7 +6,7 @@ SomeSerial::SomeSerial(HardwareSerial* _thisHardwareSerial) {
   flagHardwareSerial = true;
 }
 
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
 SomeSerial::SomeSerial(SoftwareSerial* _thisSoftwareSerial) {
   thisSoftwareSerial = _thisSoftwareSerial;
   setAllFlagsFalse();
@@ -55,7 +55,7 @@ void SomeSerial::begin(long speed) {
   } else if (flagUart) {
     thisUart->begin(speed);
 #endif
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   } else {
     thisSoftwareSerial->begin(speed);
 #endif
@@ -76,7 +76,7 @@ void SomeSerial::end() {
   } else if (flagUart) {
     thisUart->end();
 #endif
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   } else {
     thisSoftwareSerial->end();
 #endif
@@ -117,7 +117,7 @@ int SomeSerial::peek() {
   } else if (flagUart) {
     return thisUart->peek();
 #endif
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   } else {
     return thisSoftwareSerial->peek();
 #endif
@@ -138,7 +138,7 @@ size_t SomeSerial::write(uint8_t byte) {
   } else if (flagUart) {
     return thisUart->write(byte);
 #endif
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   } else {
     return thisSoftwareSerial->write(byte);
 #endif
@@ -159,7 +159,7 @@ int SomeSerial::read() {
   } else if (flagUart) {
     return thisUart->read();
 #endif
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   } else {
     return thisSoftwareSerial->read();
 #endif
@@ -180,7 +180,7 @@ int SomeSerial::available() {
   } else if (flagUart) {
     return thisUart->available();
 #endif
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   } else {
     return thisSoftwareSerial->available();
 #endif
@@ -201,7 +201,7 @@ void SomeSerial::flush() {
   } else if (flagUart) {
     thisUart->flush();
 #endif
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   } else {
     thisSoftwareSerial->flush();
 #endif

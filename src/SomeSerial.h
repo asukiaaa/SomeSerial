@@ -2,7 +2,12 @@
 #define SOME_SERIAL_H
 
 #include <Arduino.h>
-#ifndef ARDUINO_SAM_DUE // arduino due does not support SoftwareSerial
+
+#if defined(__arm__) || defined(ESP32) // arm boards and esp32 do not support SoftwareSerial
+#define SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
+#endif
+
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
 #include <SoftwareSerial.h>
 #endif
 
@@ -24,7 +29,7 @@
 class SomeSerial : public Stream {
   public:
   SomeSerial(HardwareSerial* _thisHardwareSerial);
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   SomeSerial(SoftwareSerial* _thisSoftwareSerial);
   SomeSerial(int rx, int tx);
 #endif
@@ -38,7 +43,7 @@ class SomeSerial : public Stream {
 #endif
 
   HardwareSerial* thisHardwareSerial;
-#ifndef ARDUINO_SAM_DUE
+#ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
   SoftwareSerial* thisSoftwareSerial;
 #endif
 #ifdef USBCON
