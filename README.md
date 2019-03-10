@@ -92,7 +92,7 @@ if (someSerial->isSerial_()) {
 
 For Arduino DUE.
 
-```
+```c
 if (someSerial->isUARTClass()) {
   someSerial->println("It is UARTClass");
   someSerial->thisUARTClass->println("Direct print to UARTClass");
@@ -103,7 +103,7 @@ if (someSerial->isUARTClass()) {
 
 For AVR.
 
-```
+```c
 if (someSerial->isUart()) {
   someSerial->println("It is Uart");
   someSerial->thisUart->println("Direct print to Uart");
