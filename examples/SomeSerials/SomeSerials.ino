@@ -1,23 +1,33 @@
 #include "SomeSerial.h"
 
+#ifdef SerialUSB
+SomeSerial myHardOrUsbSerial(&SerialUSB);
+#else
 SomeSerial myHardOrUsbSerial(&Serial);
+#endif
 
+#ifndef ARDUINO_SAM_DUE // arduino due does not support SoftwareSerial
 SomeSerial mySoftSerial1(10, 11); // RX, TX
 
 SoftwareSerial mySoftwareSerial(8, 9); //RX, TX
 SomeSerial mySoftSerial2(&mySoftwareSerial);
+#endif
 
 void setup() {
   myHardOrUsbSerial.begin(115200);
+#ifndef ARDUINO_SAM_DUE
   mySoftSerial1.begin(19200);
   mySoftSerial2.begin(9600);
+#endif
 }
 
 void loop() {
   testPrintWithSomeSerial(&myHardOrUsbSerial);
+#ifndef ARDUINO_SAM_DUE
   testPrintWithSomeSerial(&mySoftSerial1);
   testPrintWithSomeSerial(&mySoftSerial2);
   delay(1000);
+#endif
 }
 
 void testPrintWithSomeSerial(SomeSerial* someSerial) {
@@ -29,13 +39,23 @@ void testPrintWithSomeSerial(SomeSerial* someSerial) {
 
   } else if (someSerial->isSerial_()) {
     someSerial->println("It is USBAPI Serial_");
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
     someSerial->thisSerial_->println("Direct print to USBAPI Serial_");
 #endif
-
+  } else if (someSerial->isUARTClass()) {
+    someSerial->println("It is UARTClass");
+#ifdef ARDUINO_SAM_DUE
+    someSerial->thisUARTClass->println("Direct print to UARTClass");
+  } else if (someSerial->isUart()) {
+    someSerial->println("It is Uart");
+#elif defined(UART)
+    someSerial->thisUart->println("Direct print to Uart");
+#endif
   } else if (someSerial->isSoftwareSerial()) {
     someSerial->println("It is SoftwareSerial");
+#ifndef ARDUINO_SAM_DUE
     someSerial->thisSoftwareSerial->println("Direct print to SoftwareSerial");
+#endif
   }
   someSerial->println("## end some serial");
 }

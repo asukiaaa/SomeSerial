@@ -6,6 +6,7 @@ SomeSerial::SomeSerial(HardwareSerial* _thisHardwareSerial) {
   flagHardwareSerial = true;
 }
 
+#ifndef ARDUINO_SAM_DUE
 SomeSerial::SomeSerial(SoftwareSerial* _thisSoftwareSerial) {
   thisSoftwareSerial = _thisSoftwareSerial;
   setAllFlagsFalse();
@@ -17,36 +18,68 @@ SomeSerial::SomeSerial(int rx, int tx) {
   setAllFlagsFalse();
   flagSoftwareSerial = true;
 }
+#endif
 
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
 SomeSerial::SomeSerial(Serial_* _thisSerial_) {
   thisSerial_ = _thisSerial_;
   setAllFlagsFalse();
   flagSerial_ = true;
 }
 #endif
+#ifdef ARDUINO_SAM_DUE
+SomeSerial::SomeSerial(UARTClass* _thisUARTClass) {
+  thisUARTClass = _thisUARTClass;
+  setAllFlagsFalse();
+  flagUARTClass = true;
+}
+#elif defined(UART)
+SomeSerial::SomeSerial(Uart* _thisUart) {
+  thisUart = _thisUart;
+  setAllFlagsFalse();
+  flagUart = true;
+}
+#endif
 
 void SomeSerial::begin(long speed) {
   if (flagHardwareSerial) {
     thisHardwareSerial->begin(speed);
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
   } else if (flagSerial_) {
     thisSerial_->begin(speed);
 #endif
+#ifdef ARDUINO_SAM_DUE
+  } else if (flagUARTClass) {
+    thisUARTClass->begin(speed);
+#elif defined(UART)
+  } else if (flagUart) {
+    thisUart->begin(speed);
+#endif
+#ifndef ARDUINO_SAM_DUE
   } else {
     thisSoftwareSerial->begin(speed);
+#endif
   }
 }
 
 void SomeSerial::end() {
   if (flagHardwareSerial) {
     thisHardwareSerial->end();
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
   } else if (flagSerial_) {
     thisSerial_->end();
 #endif
+#ifdef ARDUINO_SAM_DUE
+  } else if (flagUARTClass) {
+    thisUARTClass->end();
+#elif defined(UART)
+  } else if (flagUart) {
+    thisUart->end();
+#endif
+#ifndef ARDUINO_SAM_DUE
   } else {
     thisSoftwareSerial->end();
+#endif
   }
 }
 
@@ -62,63 +95,116 @@ bool SomeSerial::isSerial_() {
   return flagSerial_;
 }
 
+bool SomeSerial::isUARTClass() {
+  return flagSerial_;
+}
+
+bool SomeSerial::isUart() {
+  return flagSerial_;
+}
+
 int SomeSerial::peek() {
   if (flagHardwareSerial) {
     return thisHardwareSerial->peek();
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
   } else if (flagSerial_) {
     return thisSerial_->peek();
 #endif
+#ifdef ARDUINO_SAM_DUE
+  } else if (flagUARTClass) {
+    return thisUARTClass->peek();
+#elif defined(UART)
+  } else if (flagUart) {
+    return thisUart->peek();
+#endif
+#ifndef ARDUINO_SAM_DUE
   } else {
     return thisSoftwareSerial->peek();
+#endif
   }
 }
 
 size_t SomeSerial::write(uint8_t byte) {
   if (flagHardwareSerial) {
     return thisHardwareSerial->write(byte);
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
   } else if (flagSerial_) {
     return thisSerial_->write(byte);
 #endif
+#ifdef ARDUINO_SAM_DUE
+  } else if (flagUARTClass) {
+    return thisUARTClass->write(byte);
+#elif defined(UART)
+  } else if (flagUart) {
+    return thisUart->write(byte);
+#endif
+#ifndef ARDUINO_SAM_DUE
   } else {
     return thisSoftwareSerial->write(byte);
+#endif
   }
 }
 
 int SomeSerial::read() {
   if (flagHardwareSerial) {
     return thisHardwareSerial->read();
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
   } else if (flagSerial_) {
     return thisSerial_->read();
 #endif
+#ifdef ARDUINO_SAM_DUE
+  } else if (flagUARTClass) {
+    return thisUARTClass->read();
+#elif defined(UART)
+  } else if (flagUart) {
+    return thisUart->read();
+#endif
+#ifndef ARDUINO_SAM_DUE
   } else {
     return thisSoftwareSerial->read();
+#endif
   }
 }
 
 int SomeSerial::available() {
   if (flagHardwareSerial) {
     return thisHardwareSerial->available();
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
   } else if (flagSerial_) {
     return thisSerial_->available();
 #endif
+#ifdef ARDUINO_SAM_DUE
+  } else if (flagUARTClass) {
+    return thisUARTClass->available();
+#elif defined(UART)
+  } else if (flagUart) {
+    return thisUart->available();
+#endif
+#ifndef ARDUINO_SAM_DUE
   } else {
     return thisSoftwareSerial->available();
+#endif
   }
 }
 
 void SomeSerial::flush() {
   if (flagHardwareSerial) {
     thisHardwareSerial->flush();
-#ifdef __USB_SERIAL_AVAILABLE__
+#ifdef USBCON
   } else if (flagSerial_) {
     thisSerial_->flush();
 #endif
+#ifdef ARDUINO_SAM_DUE
+  } else if (flagUARTClass) {
+    thisUARTClass->flush();
+#elif defined(UART)
+  } else if (flagUart) {
+    thisUart->flush();
+#endif
+#ifndef ARDUINO_SAM_DUE
   } else {
     thisSoftwareSerial->flush();
+#endif
   }
 }
 
@@ -126,4 +212,6 @@ void SomeSerial::setAllFlagsFalse() {
   flagHardwareSerial = false;
   flagSoftwareSerial = false;
   flagSerial_ = false;
+  flagUARTClass = false;
+  flagUart = false;
 }
