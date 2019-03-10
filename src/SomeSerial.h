@@ -72,12 +72,7 @@ class SomeSerial : public Stream {
   using Print::write;
 
   private:
-  void setAllFlagsFalse();
-  bool flagHardwareSerial;
-  bool flagSoftwareSerial;
-  bool flagSerial_;
-  bool flagUARTClass;
-  bool flagUart;
+  int flag;
 };
 
 #endif
