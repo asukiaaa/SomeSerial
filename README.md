@@ -1,4 +1,4 @@
-# SomeSerial
+# SomeSerial [![Build Status](https://travis-ci.org/asukiaaa/SomeSerial.svg?branch=master)](https://travis-ci.org/asukiaaa/SomeSerial)
 An Arduino library to wrap multiple kind of serials.
 
 # Useage
@@ -12,8 +12,17 @@ An Arduino library to wrap multiple kind of serials.
 ## Definition
 ### USB Serial or HardwareSerial
 
+For popular Arduino family.
+
 ```c
 SomeSerial someSerial(&Serial);
+```
+
+For official Arduino AVR boards.
+(AVR boards by Adafruit use Serial.)
+
+```
+SomeSerial someSerial(&SerialUSB);
 ```
 
 ### SoftwareSerial
@@ -36,6 +45,8 @@ Please check or test whether using pins for SoftwareSerial work or not.
 [SoftwareSerial](https://www.arduino.cc/en/Reference/SoftwareSerial)
 
 [ArduinoProducts](https://www.arduino.cc/en/Main/Products)
+
+AVR and ESP32 does not support SoftwareSerial.
 
 ## Use like Serial
 
@@ -77,13 +88,26 @@ if (someSerial->isSerial_()) {
   someSerial->thisSerial_->println("Direct print to USBAPI Serial_");
 }
 ```
+## As UARTClass
 
-If you want to use code for multiple platform including any board that does not support Serial_, call `thisSerial_` between `#ifdef __USB_SERIAL_AVAILABLE__` and `#endif`.
+For Arduino DUE.
 
-```c
-#ifdef __USB_SERIAL_AVAILABLE__
-  someSerial->thisSerial_->println("Direct print to USBAPI Serial_");
-#endif
+```
+if (someSerial->isUARTClass()) {
+  someSerial->println("It is UARTClass");
+  someSerial->thisUARTClass->println("Direct print to UARTClass");
+}
+```
+
+## As Uart
+
+For AVR.
+
+```
+if (someSerial->isUart()) {
+  someSerial->println("It is Uart");
+  someSerial->thisUart->println("Direct print to Uart");
+}
 ```
 
 # License
