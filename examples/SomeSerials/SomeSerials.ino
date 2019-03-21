@@ -1,6 +1,6 @@
 #include "SomeSerial.h"
 
-#if defined(SERIAL_PORT_USBVIRTUAL) && defined(ARDUINO_SAMD_ZERO)
+#if defined(__arm__) && !defined(ADAFRUIT_METRO_M4_EXPRESS) // adafruit samd boards does not use SerialUSB
 SomeSerial myHardOrUsbSerial(&SerialUSB);
 #else
 SomeSerial myHardOrUsbSerial(&Serial);
