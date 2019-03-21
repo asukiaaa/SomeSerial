@@ -1,6 +1,6 @@
 #include "SomeSerial.h"
 
-#ifdef SERIAL_PORT_USBVIRTUAL
+#if defined(SERIAL_PORT_USBVIRTUAL) && defined(ARDUINO_SAMD_ZERO)
 SomeSerial myHardOrUsbSerial(&SerialUSB);
 #else
 SomeSerial myHardOrUsbSerial(&Serial);
