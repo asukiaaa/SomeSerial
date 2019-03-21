@@ -1,6 +1,6 @@
 #include "SomeSerial.h"
 
-#ifdef SerialUSB
+#ifdef SERIAL_PORT_USBVIRTUAL
 SomeSerial myHardOrUsbSerial(&SerialUSB);
 #else
 SomeSerial myHardOrUsbSerial(&Serial);
