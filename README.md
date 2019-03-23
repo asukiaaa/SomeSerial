@@ -46,7 +46,7 @@ Please check or test whether using pins for SoftwareSerial work or not.
 
 [ArduinoProducts](https://www.arduino.cc/en/Main/Products)
 
-AVR and ESP32 does not support SoftwareSerial.
+ARM and ESP32 does not support SoftwareSerial.
 
 ## Use like Serial
 
