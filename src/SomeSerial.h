@@ -12,7 +12,6 @@
 #endif
 
 #ifdef USBCON
-#define __USB_SERIAL_AVAILABLE__
 #ifdef __arm__
 #include <USB/USBAPI.h>
 #else

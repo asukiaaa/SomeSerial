@@ -29,5 +29,3 @@ thisSerial_	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
-
-__USB_SERIAL_AVAILABLE__	LITERAL1
