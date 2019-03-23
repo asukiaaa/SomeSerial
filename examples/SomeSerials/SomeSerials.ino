@@ -43,15 +43,6 @@ void testPrintWithSomeSerial(SomeSerial* someSerial) {
 #ifdef USBCON
     someSerial->thisSerial_->println("Direct print to USBAPI Serial_");
 #endif
-  } else if (someSerial->isUARTClass()) {
-    someSerial->println("It is UARTClass");
-#ifdef ARDUINO_SAM_DUE
-    someSerial->thisUARTClass->println("Direct print to UARTClass");
-  } else if (someSerial->isUart()) {
-    someSerial->println("It is Uart");
-#elif defined(UART)
-    someSerial->thisUart->println("Direct print to Uart");
-#endif
   } else if (someSerial->isSoftwareSerial()) {
     someSerial->println("It is SoftwareSerial");
 #ifndef SOME_SERIAL_NOT_SUPPORT_SOFTWARE_SERIAL
