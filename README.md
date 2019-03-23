@@ -88,27 +88,6 @@ if (someSerial->isSerial_()) {
   someSerial->thisSerial_->println("Direct print to USBAPI Serial_");
 }
 ```
-## As UARTClass
-
-For Arduino DUE.
-
-```c
-if (someSerial->isUARTClass()) {
-  someSerial->println("It is UARTClass");
-  someSerial->thisUARTClass->println("Direct print to UARTClass");
-}
-```
-
-## As Uart
-
-For AVR.
-
-```c
-if (someSerial->isUart()) {
-  someSerial->println("It is Uart");
-  someSerial->thisUart->println("Direct print to Uart");
-}
-```
 
 # License
 MIT
