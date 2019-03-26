@@ -1,5 +1,5 @@
 # SomeSerial [![Build Status](https://travis-ci.org/asukiaaa/SomeSerial.svg?branch=master)](https://travis-ci.org/asukiaaa/SomeSerial)
-An Arduino library to wrap multiple kind of serials.
+An Arduino library to wrap multiple kinds of serials.
 
 # Usage
 ## Include
