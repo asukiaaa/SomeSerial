@@ -18,8 +18,8 @@ For popular Arduino family.
 SomeSerial someSerial(&Serial);
 ```
 
-For official Arduino AVR boards.
-(AVR boards by Adafruit use Serial.)
+For official Arduino SAMD boards.
+(SAMD boards by Adafruit use Serial.)
 
 ```
 SomeSerial someSerial(&SerialUSB);
