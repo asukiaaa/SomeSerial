@@ -1,6 +1,30 @@
 # SomeSerial [![Build Status](https://travis-ci.org/asukiaaa/SomeSerial.svg?branch=master)](https://travis-ci.org/asukiaaa/SomeSerial)
 An Arduino library to wrap multiple kinds of serials.
 
+# Before using this library, consider using `Stream` class to handle multiple serials.
+
+```cpp
+#include <SoftwareSerial.h>
+
+SoftwareSerial softSerial(10, 11); // RX, TX
+
+void printStream(Stream* serial) {
+  serial->print("hi at ");
+  serial->println(millis());
+}
+
+void setup() {
+  Serial.begin(115200);
+  softSerial->begin(115200);
+}
+
+void loop() {
+  printStream(&Serial);
+  printStream(&softSerial);
+  delay(1000);
+}
+```
+
 # Usage
 ## Include
 
