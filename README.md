@@ -1,7 +1,7 @@
 # SomeSerial [![Build Status](https://travis-ci.org/asukiaaa/SomeSerial.svg?branch=master)](https://travis-ci.org/asukiaaa/SomeSerial)
 An Arduino library to wrap multiple kinds of serials.
 
-# Before using this library, consider using `Stream` class to handle multiple serials.
+# Before using this library, consider using `Stream` class to handle multiple kinds of serials.
 
 ```cpp
 #include <SoftwareSerial.h>
